@@ -15,6 +15,9 @@ const Contact = () => {
       toast.warning("Enter all the details");
     }
     try {
+      const headers = {
+        "Content-type":"application/json"
+      }
       const options = {
         subject:"Request from Portfolio",
         text:{
@@ -23,7 +26,7 @@ const Contact = () => {
           body:Message,
         }
       }
-      const res = await axios.post(`${process.env.REACT_APP_API}`,options); 
+      const res = await axios.post(`${process.env.REACT_APP_API}`,options,{headers}); 
       console.log(res);
       toast.success("Response sent");
     } catch (error) {
