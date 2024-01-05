@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { ReactNavbar } from "overlay-navbar";
+import logo from "../Image/logo.png"
 
 class Header extends Component {
   render() {
@@ -20,7 +21,8 @@ class Header extends Component {
       nav2justifyContent="space-around"
       nav3justifyContent="space-around"
       nav4justifyContent="space-around"
-      
+      logo={logo}
+      logoWidth="250px"
       link1Text="Home"
       link2Text="About"
       link3Text="Projects"

@@ -23,7 +23,7 @@ const Contact = () => {
           body:Message,
         }
       }
-      const res = await axios.post("http://localhost:5000/api/send-email",options); 
+      const res = await axios.post(`${process.env.REACT_APP_API}`,options); 
       console.log(res);
       toast.success("Response sent");
     } catch (error) {
@@ -31,9 +31,6 @@ const Contact = () => {
     }
     
   };
-  useEffect(()=>{
-    toast.success("success");
-  },[]);
   return (
     <div className="contact">
       <div className="contactRightBar"></div>

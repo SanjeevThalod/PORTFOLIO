@@ -2,7 +2,6 @@ import React, { useEffect } from "react";
 import * as THREE from "three";
 import moonImg from "../Image/moon.jpg";
 import venusImg from "../Image/venus.jpg";
-import spaceImg from "../Image/space.jpg";
 //import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
 import "../Home.css";
 import { Typography } from "@mui/material";
@@ -15,17 +14,16 @@ import {
   SiNodedotjs,
   SiExpress,
   SiCss3,
-  SiHtml5,
   SiThreedotjs,
 } from "react-icons/si";
-import Contact from "./Contact/Contact";
+import Typewriter from "./TypeWriter/Typewriter";
 
 const Home = () => {
   useEffect(() => {
     const textureLoader = new THREE.TextureLoader();
+    
 
     const venusTexture = textureLoader.load(venusImg);
-    const spaceTexture = textureLoader.load(spaceImg);
     const moonTexture = textureLoader.load(moonImg);
 
     const scene = new THREE.Scene();
@@ -110,17 +108,24 @@ const Home = () => {
     };
 
     animate();
+    window.addEventListener("scroll",(e)=>{
+      camera.rotation.y = window.scrollY*0.01;
+      camera.rotation.z = window.scrollY*0.01;
+    });
   }, []);
 
   return (
     <div className="home">
-      <canvas className="homeCanvas"></canvas>
+      
+      <canvas className="homeCanvas">
+      </canvas>
+      <h1 className="writer">{`Hi! I'm Sanjeev,`} <Typewriter phrases={['Student', 'Web Developer', 'Tech Enthusiast']} /></h1>
       <div className="homeContainer">
         <Typography variant="h3">TIMELINE</Typography>
-        <TimeLine timelines={[1, 2, 3, 4]}></TimeLine>
+        <TimeLine></TimeLine>
       </div>
       <div className="homeSkills">
-        <Typography variant="h3">SKILLS</Typography>
+        <Typography variant="h3">SKILL SET</Typography>
 
         <div className="homeCubeSkills">
           <div className="homeCubeSkillsFaces homeCubeSkillsFace1">
@@ -161,9 +166,8 @@ const Home = () => {
           </div>
         </div>
         <div className="cubeShadow"></div>
-        <div className="homeSkillsBox">
+        <div className="homeSkillsBox" id="homeskillsBox">
           <SiCplusplus/>
-          <SiHtml5/>
           <SiCss3 />
           <SiJavascript />
           <SiMongodb />
@@ -174,6 +178,7 @@ const Home = () => {
         </div>
       </div>
       <div className="filler">
+      
       </div>
     </div>
   );

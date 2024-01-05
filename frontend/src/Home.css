@@ -1,6 +1,21 @@
 .homeCanvas{
-    width: 100vw;
+    max-width: 100vw;
+    box-sizing: border-box;
     height: 100vh;
+    filter: blur(2.5px);
+    overflow: hidden;
+}
+.writer{
+    z-index: 1;
+    transform: translateY(-400px);
+    position: absolute;
+    left: -200vh;
+    font-size: 50px;
+    font-family: "Ubuntu Mono";
+    text-shadow: 2px 1px 8px gray;
+    text-align: center;
+    color: white;
+    animation: writerAnimation ease-in-out 2s forwards;
 }
 .homeContainer{
     background-color: white;
@@ -94,24 +109,54 @@
 }
 .homeSkillsBox{
     background-color: hsl(250,100%,75%);
-    padding: 0.5vmax 2vmax;
+    padding: 0.5vmax 1vmax;
     position: absolute;
     display: flex;
+    right: 50px;
     flex-direction: column;
-    right: -300px;
-    transform: translateY(100px);
-    animation-duration: 1s;
-    animation-timing-function: linear;
-    animation-fill-mode: forwards;
+    transform: translateY(50px);
+    animation-duration: 2s;
+    animation-timing-function: infinite;
+    
 }
 .homeSkillsBox > svg{
     font-size: 4vmax;
     color: rgb(255,255,255);
     transition: all 0.5s;
     margin: 8px;
+    animation: homeSkillsBoxAnimationOn 2s infinite;
 }
 .homeSkillsBox > svg:hover{
     transform: scale(1.5);
+}
+.homeSkillsBox > svg:nth-child(1) {
+    animation-delay: 0s;
+}
+
+.homeSkillsBox > svg:nth-child(2) {
+    animation-delay: 0.2s;
+}
+
+.homeSkillsBox > svg:nth-child(3) {
+    animation-delay: 0.4s;
+}
+.homeSkillsBox > svg:nth-child(4) {
+    animation-delay: 0.6s;
+}
+
+.homeSkillsBox > svg:nth-child(5) {
+    animation-delay: 0.8s;
+}
+
+.homeSkillsBox > svg:nth-child(6) {
+    animation-delay: 1s;
+}
+.homeSkillsBox > svg:nth-child(7) {
+    animation-delay: 1.2s;
+}
+
+.homeSkillsBox > svg:nth-child(8) {
+    animation-delay: 1.4s;
 }
 
 .filler{
@@ -134,11 +179,20 @@
         transform: scale(1.2) translateY(-10px);
     }
 }
+@keyframes writerAnimation{
+    to{
+        left: 10vw;
+    }
+}
 @keyframes homeSkillsBoxAnimationOn{
-    from{
-        right: -300px;
-    }to{
-        right: 40px;
+    0%{
+        scale: 1;
+        color: white;
+    }50%{
+        scale: 1.2;
+        color: hsl(219,48%,8%);
+    }100%{
+        scale: 1;
     }
 }
 @keyframes homeSkillsBoxAnimationOff{
@@ -157,6 +211,10 @@
     }
     .cubeShadow{
         top: -150px;
+    }
+    .homeSkillsBox{
+        flex-direction: row;
+        transform: translate(55px,350px);
     }
 }
 

@@ -9,7 +9,24 @@ import TimelineDot from "@mui/lab/TimelineDot";
 import { Event } from "@mui/icons-material";
 import Typography from "@mui/material/Typography";
 
-const TimeLine = ({ timelines = [] }) => {
+const TimeLine = () => {
+  const timelines = [
+    {
+      date: "09/2021 - 06/2025",
+      title: "Graduation",
+      subtitle: "Completed B.Tech in CSE",
+    },
+    {
+      date: "03/2021",
+      title: "12th grade",
+      subtitle: "Achieved 96.7% in board exams",
+    },
+    {
+      date: "05/2019",
+      title: "03/2019",
+      subtitle: "Achieved 8.7% in board exams",
+    },
+  ];
   return (
     <div>
       <Timeline position="alternate">
@@ -18,16 +35,16 @@ const TimeLine = ({ timelines = [] }) => {
             <TimelineOppositeContent 
               align="right"
               variant="body2"
-              color="text.secondry">3/27/22</TimelineOppositeContent>
+              color="text.secondry">{item.date}</TimelineOppositeContent>
             <TimelineSeparator>
               <TimelineConnector />
               <TimelineDot><Event></Event></TimelineDot>
             </TimelineSeparator>
             <TimelineContent sx={{py:"12px", px:2}}>
               <Typography variant="h6" component="h1">
-                Title
+                {item.title}
               </Typography>
-              <Typography>Subtitle</Typography>
+              <Typography>{item.subtitle}</Typography>
             </TimelineContent>
           </TimelineItem>
         ))}
