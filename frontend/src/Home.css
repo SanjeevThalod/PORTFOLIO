@@ -167,6 +167,26 @@
     width: 100%;
     box-sizing: border-box;
     min-height: 200px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+}
+.haha{
+    text-align: center;
+  color: white;
+  background-color: hsl(250, 100%, 75%);
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  padding: 2vmax 4vmax;
+  display: flex;
+  border-radius: 100px;
+  left: 50%;
+  transform: translate(-50%, -100vh);
+  animation: projectHeading 1s ease-in-out forwards;
+  text-decoration: none;
+  font-size: 20px;
 }
 
 @keyframes cubeRotation{

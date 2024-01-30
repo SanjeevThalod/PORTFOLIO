@@ -6,6 +6,7 @@ import venusImg from "../Image/venus.jpg";
 import "../Home.css";
 import { Typography } from "@mui/material";
 import TimeLine from "./TimeLine/TimeLine";
+import {Link} from "react-router-dom";
 import {
   SiCplusplus,
   SiReact,
@@ -178,7 +179,7 @@ const Home = () => {
         </div>
       </div>
       <div className="filler">
-      
+      <Link to="/projects" className="haha">Projects</Link>
       </div>
     </div>
   );

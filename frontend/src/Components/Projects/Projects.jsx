@@ -77,6 +77,7 @@ const Projects = () => {
             <div className="projectsWrapper">
                 {projects.map((item,index)=>(
                     <ProjectCard key={index}
+                    url={item.url}
                     projectTitle={item.projectTitle}
                     projectImage={item.projectImage}
                     description={item.description}
