@@ -76,7 +76,7 @@ const Projects = () => {
             <Typography variant='h3'>Projects <AiOutlineProject/></Typography>
             <div className="projectsWrapper">
                 {projects.map((item,index)=>(
-                    <ProjectCard url="https://cool-gelato-60b04c.netlify.app" key={index}
+                    <ProjectCard key={index}
                     projectTitle={item.projectTitle}
                     projectImage={item.projectImage}
                     description={item.description}
