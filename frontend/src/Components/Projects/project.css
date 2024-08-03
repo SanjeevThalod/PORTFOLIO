@@ -77,8 +77,8 @@
 .projectCard > div:last-child {
   padding: 3vmax;
 }
-.projectCard:hover div:first-child{
-    filter: blur(3px) hue-rotate(240deg);
+.projectCard > div:first-child img:hover {
+  filter: blur(3px) hue-rotate(240deg);
 }
 .projectCard > div:last-child > h4 {
   text-align: center;
@@ -108,7 +108,7 @@
   }
 }
 
-@media screen and (max-width:600px){
+@media screen and (max-width:1080px){
     .projectCard{
         flex-direction: column;
         margin-bottom: 10vmax;

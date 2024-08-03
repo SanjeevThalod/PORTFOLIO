@@ -189,6 +189,28 @@
   font-size: 20px;
 }
 
+.downloadResumeButton {
+  background-color: #007bff; /* Button color */
+  color: white;              /* Text color */
+  border: none; 
+  padding: 10px 20px;        /* Padding around the text */
+  font-size: 32px;           /* Font size */
+
+  cursor: pointer;           /* Pointer cursor on hover */
+  text-decoration: none;     /* Remove underline */
+  display: inline-block; 
+  position: absolute;
+  right: 50px;
+  bottom: 50px; 
+  position: fixed;  
+  z-index: 1000;/* Inline block display */
+  border-radius: 200px;             /* Remove border */
+}
+
+.downloadResumeButton:hover{
+  background-color: #0056b3; /* Darker color on hover */
+}
+
 @keyframes cubeRotation{
     to{
         transform: rotateY(360deg) rotateX(480deg) rotateZ(720deg);

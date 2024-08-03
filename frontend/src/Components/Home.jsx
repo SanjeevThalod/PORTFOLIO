@@ -6,7 +6,9 @@ import venusImg from "../Image/venus.jpg";
 import "../Home.css";
 import { Typography } from "@mui/material";
 import TimeLine from "./TimeLine/TimeLine";
-import {Link} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
+import { IoCloudDownloadSharp } from "react-icons/io5";
+import { Tooltip } from 'react-tooltip';
 import {
   SiCplusplus,
   SiReact,
@@ -20,6 +22,7 @@ import {
 import Typewriter from "./TypeWriter/Typewriter";
 
 const Home = () => {
+  const navigate = useNavigate();
   useEffect(() => {
     const textureLoader = new THREE.TextureLoader();
     
@@ -115,12 +118,19 @@ const Home = () => {
     });
   }, []);
 
+  const handleResume = ()=>{
+    window.open("https://drive.google.com/drive/folders/1CcrNcELd2lyPH7RnrZbku0Xm9l0SBux7?usp=sharing");
+  }
+
   return (
     <div className="home">
       
       <canvas className="homeCanvas">
       </canvas>
-      <h1 className="writer">{`Hi! I'm Sanjeev,`} <Typewriter phrases={['Student', 'Web Developer', 'Tech Enthusiast']} /></h1>
+      <div className="writer">
+        <h1>{`Hi! I'm Sanjeev,`}</h1>
+        <Typewriter phrases={["-Student", "-Web Developer", "-Tech Enthusiast"]} />
+      </div>
       <div className="homeContainer">
         <Typography variant="h3">TIMELINE</Typography>
         <TimeLine></TimeLine>
@@ -179,8 +189,10 @@ const Home = () => {
         </div>
       </div>
       <div className="filler">
-      <Link to="/projects" className="haha">Projects</Link>
+      <button className="haha" onClick={()=>navigate('/projects')} >Projects</button>
       </div>
+      <IoCloudDownloadSharp className="downloadResumeButton"  data-tooltip-id="tooltip" data-tooltip-content="Download Resume"  onClick={handleResume}/>
+      <Tooltip id="tooltip" place="top" effect="solid" style={{zIndex:"1000",fontFamily:'revert'}}/>
     </div>
   );
 };

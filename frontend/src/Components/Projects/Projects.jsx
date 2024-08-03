@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import "./project.css"
 import { Button, Typography } from '@mui/material';
 import { AiOutlineProject } from "react-icons/ai";
@@ -70,7 +70,9 @@ const Projects = () => {
           },
       ];
       
-      
+      useEffect(()=>{
+        window.scrollTo(0, 0);
+      },[]);
     return (
         <div className='projects'>
             <Typography variant='h3'>Projects <AiOutlineProject/></Typography>

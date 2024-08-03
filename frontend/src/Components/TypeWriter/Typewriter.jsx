@@ -1,45 +1,32 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
+import './Typewriter.css';
 
-const Typewriter = ({ phrases, period = 2000 }) => {
-  const [text, setText] = useState('');
-  const [isDeleting, setIsDeleting] = useState(false);
-  const [delta, setDelta] = useState(300 - Math.random() * 100);
-  const [index, setIndex] = useState(0);
+const Typewriter = ({ phrases }) => {
+  const [currentPhrase, setCurrentPhrase] = useState('');
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const [displayPhrase, setDisplayPhrase] = useState('');
 
   useEffect(() => {
-    const ticker = setInterval(() => {
-      tick();
-    }, delta);
+    let typingTimeout;
 
-    return () => {
-      clearInterval(ticker);
-    };
-  }, [text]);
+    if (currentIndex < phrases.length) {
+      typingTimeout = setTimeout(() => {
+        const fullPhrase = phrases[currentIndex];
+        setDisplayPhrase((prev) => fullPhrase.slice(0, prev.length + 1));
+      }, 100);
 
-  const tick = () => {
-    const i = index % phrases.length;
-    const fullText = phrases[i];
-    const updatedText = isDeleting
-      ? fullText.substring(0, text.length - 1)
-      : fullText.substring(0, text.length + 1);
-
-    setText(updatedText);
-
-    if (isDeleting) {
-      setDelta((prevDelta) => prevDelta / 2);
+      if (displayPhrase === phrases[currentIndex]) {
+        typingTimeout = setTimeout(() => {
+          setCurrentIndex((prev) => (prev + 1) % phrases.length);
+          setDisplayPhrase('');
+        }, 2000);
+      }
     }
 
-    if (!isDeleting && updatedText === fullText) {
-      setIsDeleting(true);
-      setDelta(period);
-    } else if (isDeleting && updatedText === '') {
-      setIsDeleting(false);
-      setIndex((prevIndex) => prevIndex + 1);
-      setDelta(500);
-    }
-  };
+    return () => clearTimeout(typingTimeout);
+  }, [currentIndex, displayPhrase, phrases]);
 
-  return <span className="txt-rotate">{text}</span>;
+  return <span className="typewriter-line">{displayPhrase}</span>;
 };
 
 export default Typewriter;

@@ -12,19 +12,19 @@ import Typography from "@mui/material/Typography";
 const TimeLine = () => {
   const timelines = [
     {
-      date: "09/2021 - 06/2025",
-      title: "Graduation",
-      subtitle: "Completed B.Tech in CSE",
+      date: "MAY  2019",
+      title: "APR  2019",
+      subtitle: "Achieved 8.7% in board exams",
     },
     {
-      date: "03/2021",
+      date: "MAR  2021",
       title: "12th grade",
       subtitle: "Achieved 96.7% in board exams",
     },
     {
-      date: "05/2019",
-      title: "03/2019",
-      subtitle: "Achieved 8.7% in board exams",
+      date: "JUN 2025",
+      title: "Graduation",
+      subtitle: "Completed B.Tech in CSE",
     },
   ];
   return (
@@ -35,9 +35,10 @@ const TimeLine = () => {
             <TimelineOppositeContent 
               align="right"
               variant="body2"
-              color="text.secondry">{item.date}</TimelineOppositeContent>
+              fontWeight="600"
+              color="blue">{item.date}</TimelineOppositeContent>
             <TimelineSeparator>
-              <TimelineConnector />
+              <TimelineConnector sx={{ height: 100 }}/>
               <TimelineDot><Event></Event></TimelineDot>
             </TimelineSeparator>
             <TimelineContent sx={{py:"12px", px:2}}>
