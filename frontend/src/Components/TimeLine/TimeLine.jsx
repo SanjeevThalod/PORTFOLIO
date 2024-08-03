@@ -13,8 +13,8 @@ const TimeLine = () => {
   const timelines = [
     {
       date: "MAY  2019",
-      title: "APR  2019",
-      subtitle: "Achieved 8.7% in board exams",
+      title: "10th grade",
+      subtitle: "Achieved 89.7% in board exams",
     },
     {
       date: "MAR  2021",
