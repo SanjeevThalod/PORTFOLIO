@@ -2,11 +2,10 @@ import React, { useEffect } from "react";
 import * as THREE from "three";
 import moonImg from "../Image/moon.jpg";
 import venusImg from "../Image/venus.jpg";
-//import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
 import "../Home.css";
 import { Typography } from "@mui/material";
 import TimeLine from "./TimeLine/TimeLine";
-import {Link, useNavigate} from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { IoCloudDownloadSharp } from "react-icons/io5";
 import { Tooltip } from 'react-tooltip';
 import {
@@ -23,12 +22,17 @@ import Typewriter from "./TypeWriter/Typewriter";
 
 const Home = () => {
   const navigate = useNavigate();
+  
   useEffect(() => {
     const textureLoader = new THREE.TextureLoader();
     
-
     const venusTexture = textureLoader.load(venusImg);
+    venusTexture.generateMipmaps = false; // Disable mipmaps for Venus
+    venusTexture.minFilter = THREE.LinearFilter;
+    
     const moonTexture = textureLoader.load(moonImg);
+    moonTexture.generateMipmaps = false; // Disable mipmaps for Moon
+    moonTexture.minFilter = THREE.LinearFilter;
 
     const scene = new THREE.Scene();
     const camera = new THREE.PerspectiveCamera(
@@ -37,6 +41,8 @@ const Home = () => {
       0.1,
       1000
     );
+
+    // Initial camera position
     camera.position.set(4, 4, 8);
 
     const canvas = document.querySelector(".homeCanvas");
@@ -112,73 +118,82 @@ const Home = () => {
     };
 
     animate();
-    window.addEventListener("scroll",(e)=>{
-      camera.rotation.y = window.scrollY*0.01;
-      camera.rotation.z = window.scrollY*0.01;
-    });
+
+    const handleScroll = () => {
+      if (window.innerWidth <= 600) { // Check if on mobile
+        camera.position.y = 5 - window.scrollY * 0.01; // Adjust this value to change the speed of scrolling
+        if (camera.position.y < 0) camera.position.y = 0; // Ensure camera doesn't go below ground level
+      } else {
+        camera.rotation.y = window.scrollY * 0.01;
+        camera.rotation.z = window.scrollY * 0.01;
+      }
+    };
+
+    window.addEventListener("scroll", handleScroll);
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
   }, []);
 
-  const handleResume = ()=>{
+  const handleResume = () => {
     window.open("https://drive.google.com/drive/folders/1CcrNcELd2lyPH7RnrZbku0Xm9l0SBux7?usp=sharing");
-  }
+  };
 
   return (
     <div className="home">
-      
-      <canvas className="homeCanvas">
-      </canvas>
+      <canvas className="homeCanvas"></canvas>
       <div className="writer">
         <h1>{`Hi! I'm Sanjeev,`}</h1>
         <Typewriter phrases={["-Student", "-Web Developer", "-Tech Enthusiast"]} />
       </div>
       <div className="homeContainer">
         <Typography variant="h3">TIMELINE</Typography>
-        <TimeLine></TimeLine>
+        <TimeLine />
       </div>
       <div className="homeSkills">
         <Typography variant="h3">SKILL SET</Typography>
-
         <div className="homeCubeSkills">
           <div className="homeCubeSkillsFaces homeCubeSkillsFace1">
             <img
-              src="https://1.bp.blogspot.com/-TGQt5uRcAkg/XuMIJoAhwnI/AAAAAAAAA38/FaJQpUUDsGEYR1zBK1wqLWUA9DTYp5CiQCPcBGAYYCw/s587/js.png"
+              src="https://res.cloudinary.com/dxt2i61hy/image/upload/v1722702937/js_o0swbq.png"
               alt="face1"
             />
           </div>
           <div className="homeCubeSkillsFaces homeCubeSkillsFace2">
             <img
-              src="https://upload.wikimedia.org/wikipedia/commons/3/30/React_Logo_SVG.svg"
+              src="https://res.cloudinary.com/dxt2i61hy/image/upload/v1722703813/React_Logo_SVG_mxzpoi.svg"
               alt="face2"
             />
           </div>
           <div className="homeCubeSkillsFaces homeCubeSkillsFace3">
             <img
-              src="https://upload.wikimedia.org/wikipedia/commons/6/64/Expressjs.png"
+              src="https://res.cloudinary.com/dxt2i61hy/image/upload/v1722704015/three-25cfa581_wk94ro.webp"
               alt="face3"
             />
           </div>
           <div className="homeCubeSkillsFaces homeCubeSkillsFace4">
             <img
-              src="https://viget.imgix.net/mongo-logo.png?auto=format%2Ccompress&crop=focalpoint&fit=crop&fp-x=0.5&fp-y=0.5&h=672&ixlib=php-3.3.1&q=90&w=672&s=236e0c43a5d3899208a661a2ad47b975"
+              src="https://res.cloudinary.com/dxt2i61hy/image/upload/v1722703631/246656344_10165689418720557_4225476852778908330_n_e2fypb.png"
               alt="face4"
             />
           </div>
           <div className="homeCubeSkillsFaces homeCubeSkillsFace5">
             <img
-              src="https://images.g2crowd.com/uploads/product/image/large_detail/large_detail_f0b606abb6d19089febc9faeeba5bc05/nodejs-development-services.png"
+              src="https://res.cloudinary.com/dxt2i61hy/image/upload/v1722703305/nodejs-development-services_qeqgyz.png"
               alt="face5"
             />
           </div>
           <div className="homeCubeSkillsFaces homeCubeSkillsFace6">
             <img
-              src="https://upload.wikimedia.org/wikipedia/commons/1/18/ISO_C%2B%2B_Logo.svg"
+              src="https://res.cloudinary.com/dxt2i61hy/image/upload/v1722703878/ISO_C_2B_2B_Logo_guakdu.svg"
               alt="face6"
             />
           </div>
         </div>
         <div className="cubeShadow"></div>
         <div className="homeSkillsBox" id="homeskillsBox">
-          <SiCplusplus/>
+          <SiCplusplus />
           <SiCss3 />
           <SiJavascript />
           <SiMongodb />
@@ -189,10 +204,10 @@ const Home = () => {
         </div>
       </div>
       <div className="filler">
-      <button className="haha" onClick={()=>navigate('/projects')} >Projects</button>
+        <button className="haha" onClick={() => navigate('/projects')}>Projects</button>
       </div>
-      <IoCloudDownloadSharp className="downloadResumeButton"  data-tooltip-id="tooltip" data-tooltip-content="Download Resume"  onClick={handleResume}/>
-      <Tooltip id="tooltip" place="top" effect="solid" style={{zIndex:"1000",fontFamily:'revert'}}/>
+      <IoCloudDownloadSharp className="downloadResumeButton" data-tooltip-id="tooltip" data-tooltip-content="Download Resume" onClick={handleResume} />
+      <Tooltip id="tooltip" place="top" effect="solid" style={{ zIndex: "1000", fontFamily: 'revert' }} />
     </div>
   );
 };
