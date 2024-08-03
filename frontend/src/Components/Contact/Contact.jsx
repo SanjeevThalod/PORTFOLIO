@@ -1,39 +1,45 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import "./contact.css";
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { Button, Typography } from "@mui/material";
-import axios from "axios";
+import emailjs from 'emailjs-com';
 
 const Contact = () => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
-  const [Message, setMessage] = useState("");
-  const contactFormHandler =async (e) => {
+  const [message, setMessage] = useState("");
+
+  const contactFormHandler = async (e) => {
     e.preventDefault();
-    if(!name || !email || !Message){
+    if (!name || !email || !message) {
       toast.warning("Enter all the details");
-    }
-    try {
-      const headers = {
-        "Content-type":"application/json"
-      }
-      const options = {
-        subject:"Request from Portfolio",
-        text:{
-          from:email,
-          name:name,
-          body:Message,
-        }
-      }
-      const res = await axios.post(`${process.env.REACT_APP_API}`,options,{headers}); 
-      console.log(res);
-      toast.success("Response sent");
-    } catch (error) {
-      toast.error("Error sending Email");
+      return;
     }
     
+    const templateParams = {
+      name,
+      email,
+      message,
+    };
+
+    try {
+      await emailjs.send(
+        process.env.REACT_APP_SERVICE_ID,
+        process.env.REACT_APP_TEMPLATE_ID,
+        templateParams,
+        process.env.REACT_APP_KEY
+      );
+      toast.success("Response sent");
+      setName("");
+      setEmail("");
+      setMessage("");
+    } catch (error) {
+      console.error("Failed to send email:", error);
+      toast.error("Error sending Email");
+    }
   };
+
   return (
     <div className="contact">
       <div className="contactRightBar"></div>
@@ -59,10 +65,10 @@ const Contact = () => {
             cols="30"
             rows="10"
             placeholder="Message"
-            value={Message}
+            value={message}
             onChange={(e) => setMessage(e.target.value)}
           ></textarea>
-          <Button variant="contained" type="Submit">
+          <Button variant="contained" type="submit">
             Send
           </Button>
         </form>
