@@ -1,7 +1,9 @@
 import React, { useEffect } from "react";
 import * as THREE from "three";
-import moonImg from "../Image/moon.jpg";
-import venusImg from "../Image/venus.jpg";
+import moonImg from "../Image/moon.webp";
+import lowresMoon from "../Image/moon_low_res.jpg";
+import lowresVenus from "../Image/venus_low_res.jpg";
+import venusImg from "../Image/venus.webp";
 import "../Home.css";
 import { Typography } from "@mui/material";
 import TimeLine from "./TimeLine/TimeLine";
@@ -22,17 +24,14 @@ import Typewriter from "./TypeWriter/Typewriter";
 
 const Home = () => {
   const navigate = useNavigate();
-  
+
   useEffect(() => {
     const textureLoader = new THREE.TextureLoader();
-    
-    const venusTexture = textureLoader.load(venusImg);
-    venusTexture.generateMipmaps = false; // Disable mipmaps for Venus
-    venusTexture.minFilter = THREE.LinearFilter;
-    
-    const moonTexture = textureLoader.load(moonImg);
-    moonTexture.generateMipmaps = false; // Disable mipmaps for Moon
-    moonTexture.minFilter = THREE.LinearFilter;
+    const lowResLoader = new THREE.TextureLoader();
+
+    // Load low-resolution textures first
+    const lowResVenusTexture = lowResLoader.load(lowresVenus);
+    const lowResMoonTexture = lowResLoader.load(lowresMoon);
 
     const scene = new THREE.Scene();
     const camera = new THREE.PerspectiveCamera(
@@ -53,12 +52,12 @@ const Home = () => {
     renderer.shadowMap.enabled = true;
 
     const moonGeometry = new THREE.SphereGeometry(2, 64, 64);
-    const moonMaterial = new THREE.MeshPhongMaterial({ map: moonTexture });
+    const moonMaterial = new THREE.MeshPhongMaterial({ map: lowResMoonTexture });
     const moon = new THREE.Mesh(moonGeometry, moonMaterial);
     moon.castShadow = true; // Make the moon cast shadows
 
     const venusGeometry = new THREE.SphereGeometry(3, 64, 64);
-    const venusMaterial = new THREE.MeshBasicMaterial({ map: venusTexture });
+    const venusMaterial = new THREE.MeshBasicMaterial({ map: lowResVenusTexture });
     const venus = new THREE.Mesh(venusGeometry, venusMaterial);
     venus.position.set(8, 5, 5);
 
@@ -71,12 +70,22 @@ const Home = () => {
     pointLight2.castShadow = true;
 
     const lightHelper = new THREE.PointLightHelper(pointLight);
-    //const controls = new OrbitControls(camera, renderer.domElement);
     scene.add(moon);
     scene.add(venus);
     scene.add(pointLight);
     scene.add(pointLight2);
     scene.add(new THREE.AmbientLight(0x404044)); // Add ambient light to illuminate shadows
+
+    // Load high-resolution textures and swap
+    const highResVenusTexture = textureLoader.load(venusImg, (texture) => {
+      venus.material.map = texture;
+      venus.material.needsUpdate = true; // Update the material with the new texture
+    });
+
+    const highResMoonTexture = textureLoader.load(moonImg, (texture) => {
+      moon.material.map = texture;
+      moon.material.needsUpdate = true; // Update the material with the new texture
+    });
 
     // movement
     const constSpeed = 0.01;

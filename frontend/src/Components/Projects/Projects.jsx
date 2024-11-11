@@ -43,6 +43,14 @@ const Projects = () => {
           description: "A complete chatApp",
           technologies: "MongoDB, React, NodeJS, Express",
           isAdmin: false,
+        },{
+          url:"https://rescue-connect-be7f3.web.app/",
+          projectTitle:"Rescue-Connect",
+          projectImage:"https://res.cloudinary.com/dxt2i61hy/image/upload/v1731301200/xqedktqknh5xu3qtydrs.png",
+          
+          description:"Complete solution for rescue agencies to co-ordinate in the times of need",
+          technologies:"ReactJs,MongoDB, ExpressJs",
+          isAdmin:false,
         },
         {
           url: "https://go-food-frontend-mauve.vercel.app/",
